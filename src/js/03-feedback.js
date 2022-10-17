@@ -11,22 +11,19 @@ formEl.addEventListener('submit', submitForm);
 formFilling();
 
 function saveFormData(event) {
-  const {
-    elements: { email, message },
-  } = event.currentTarget;
-  formObj.email = email.value;
-  formObj.message = message.value;
+  // const {
+  //   elements: { email, message },
+  // } = event.target;
+  formObj[event.target.name] = event.target.value;
   localStorage.setItem('feedback-form-state', JSON.stringify(formObj));
 }
 
 function formFilling() {
   if (localStorage.getItem('feedback-form-state')) {
     const formData = JSON.parse(localStorage.getItem('feedback-form-state'));
-    console.log(formData);
-    emailEl.value = formData.email;
-    messageEl.value = formData.message;
+    emailEl.value = formData.email || '';
+    messageEl.value = formData.message || '';
   }
-  return;
 }
 
 function submitForm(event) {
